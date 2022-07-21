@@ -1,9 +1,8 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from .serializers import PersonSerializer, ClientSerializer, RoomSerializer, ReservationSerializer #impor the serializer we just created
 from .models import Person, Client, Reservation, Room
 from rest_framework.response import Response
 from django.http import JsonResponse, Http404
-from rest_framework import status
 from rest_framework.views import APIView
 
 class person_view_set(viewsets.ModelViewSet):

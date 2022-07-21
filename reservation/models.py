@@ -58,8 +58,7 @@ class Reservation(models.Model):
         null = True
     )
     room_id = models.ManyToManyField(Room)
-    amount_total = models.CharField(max_length=255, 
-                                    null=True)
+    amount_total = models.FloatField()
 
     def __str__(self):
         return f'{self.hash_reservation}'

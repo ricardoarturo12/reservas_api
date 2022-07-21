@@ -11,12 +11,11 @@ router = routers.DefaultRouter()
 router.register(r'person', person_view_set)
 router.register(r'client', client_view_set)
 router.register(r'room', room_view_set)#t#the route tha will be used to access your API on the browser
-# router.register(r'reservation', reservation_view_set)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
-    path('reservation/', ReservationApiView.as_view()),
-    path('reservation/<int:pk>/', ReservationListApiView.as_view(), name='reservations'),
+    path('api/reservation/', ReservationApiView.as_view()),
+    path('api/reservation/<int:pk>/', ReservationListApiView.as_view(), name='reservations'),
 ]
