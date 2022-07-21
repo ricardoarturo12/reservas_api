@@ -8,7 +8,7 @@ from reservation.models import Reservation, Room, Client, Person
 import json
 
 
-class AuthorsSerializerTestCase(APITestCase):
+class PersonSerializerTestCase(APITestCase):
 
     def setUp(self):
         self.client = APIClient()
@@ -17,13 +17,17 @@ class AuthorsSerializerTestCase(APITestCase):
             email='test@test.com',
             password='testpass')
         self.client.force_authenticate(self.user)
-        self.author_test = Person.objects.create(name='AuthorTest')
+        self.person_test = Person.objects.create(
+            identification= "test",
+            name= "Soledad Molinas",
+            age= 31,
+        )
 
 
     def test_person_post(self):
         """Test create a new person"""
         payload = {
-            "identification": "2879592",
+            "identification": "test1",
             "name": "Soledad Molinas",
             "age": 31,
         }
@@ -31,9 +35,54 @@ class AuthorsSerializerTestCase(APITestCase):
         response = self.client.post("/person/",
                                     payload,
                                     format='json')
-
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
         exists = Person.objects.filter(
                 identification=payload['identification']
         ).exists()
         self.assertTrue(exists)
+
+
+    def test_person_get(self):
+        """Test get person"""
+        response = self.client.get("/person/",
+                                    format='json')
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        exists = Person.objects.all().exists()
+        self.assertTrue(exists)
+
+
+    def test_person_put(self):
+        """Test put a person"""
+        payload = {
+            'identification': 'test12',
+            'name': 'Nombre de test',
+            'age': 23,
+        }
+        response = self.client.put(f'/person/{self.person_test.id}/' ,
+                                   data=payload,
+                                   format='json')
+        self.assertEqual(status.HTTP_200_OK,
+                         response.status_code)
+
+        exists = Person.objects.filter(
+                identification=payload['identification']
+        ).exists()
+        self.assertTrue(exists)
+
+
+    def test_person_delete(self):
+        """Test delete a person"""
+        payload = {
+            'identification': 'test12',
+            'name': 'Nombre de test',
+            'age': 23,
+        }
+        response = self.client.delete(f'/person/{self.person_test.id}/' ,
+                                   data=payload,
+                                   format='json')
+        self.assertEqual(status.HTTP_204_NO_CONTENT,
+                         response.status_code)
+
+
+class ReservationSerializerTestCase(APITestCase):
+    pass

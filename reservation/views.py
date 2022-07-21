@@ -1,8 +1,8 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from .serializers import PersonSerializer, ClientSerializer, RoomSerializer, ReservationSerializer #impor the serializer we just created
 from .models import Person, Client, Reservation, Room
 from rest_framework.response import Response
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from rest_framework import status
 from rest_framework.views import APIView
 
@@ -22,15 +22,31 @@ class room_view_set(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
-class reservation_view_set(viewsets.ModelViewSet):
-    # define queryset
-    queryset = Reservation.objects.all()
+
+class ReservationApiView(generics.ListCreateAPIView):
+    """
+        Busca por hash_reservation y/o id_reservation
+    """
+    queryset = Reservation.objects.all().order_by('id')
     serializer_class = ReservationSerializer
 
-class ReservationApiView(APIView):
+    def get_queryset(self):
+        queryset = Reservation.objects.all()
+
+        hash_reservation = self.request.query_params.get("hash_reservation")
+        if hash_reservation is not None:
+            queryset = queryset.filter(hash_reservation=hash_reservation)
+
+        id_reservation = self.request.query_params.get('id')
+        if id_reservation is not None:
+            queryset = queryset.filter(id=id_reservation)
+
+        return queryset.order_by('id')
+
+
     def post(self, request, *args, **kwargs):
         '''
-            post items
+            post reservations
         '''
         person_list = []
         room_list = []
@@ -108,3 +124,37 @@ class ReservationApiView(APIView):
                             'hash_reservation': serializer.data["hash_reservation"]
                         })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ReservationListApiView(APIView):
+    """
+    get:
+        Return a Reservation
+    put:
+        Update a Reservation
+    delete:
+        Delete a Reservation
+    """
+    def get_object(self, pk):
+        try:
+            return Reservation.objects.get(pk=pk)
+        except Reservation.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        reservation = self.get_object(pk)
+        serializer = ReservationSerializer(reservation)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, pk, format=None):
+        reservation = self.get_object(pk)
+        serializer = ReservationSerializer(reservation, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        reservation = self.get_object(pk)
+        reservation.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

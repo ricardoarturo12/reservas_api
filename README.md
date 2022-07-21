@@ -20,7 +20,10 @@ https://developer.mozilla.org/es/docs/Learn/Server-side/Django/Testing
     docker-compose run web python manage.py createsuperuser
 ```
 
+```
+    python manage.py test
 
+```
 
 # Features
 - Tokens
@@ -81,3 +84,5 @@ Reserva
     "amount_total": "312122"
 
 ```
+
+
