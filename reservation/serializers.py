@@ -1,7 +1,6 @@
 from dataclasses import fields
 from rest_framework import serializers
 from .models import Person, Client, Room, Reservation
-from drf_writable_nested import WritableNestedModelSerializer
 from django.http import Http404
 from rest_framework.response import Response
 
