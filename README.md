@@ -241,6 +241,7 @@ To run this project, you will need to add the following environment variables to
 - Funcionalidad calcular cantidad de días
 - Actualización de datos de persona
 - Test Reservation views
+- Implementar https://swagger.io/ para documentar
 
 
 ## Review
