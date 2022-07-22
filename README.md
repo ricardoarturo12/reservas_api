@@ -240,3 +240,35 @@ To run this project, you will need to add the following environment variables to
 - Tokens
 - Funcionalidad calcular cantidad de días
 - Actualización de datos de persona
+- Test Reservation views
+
+
+## Review
+
+#### Reservación
+La reservación tiene los siguientes campos:
+- Estado: Pendiente, pagado y eliminado.
+- Días.
+- Fecha inicial y final.
+- Monto total.
+- Método de pago: Efectivo, tarjeta, transferencia, otro.
+- Cliente: Es el cliente a facturar. Debe estar ingresado previamente para envío de datos (no requerido).
+- Personas: La reserva se puede realizar para varias personas. Si la persona no está registrada, se registra en el endpoint.
+- Habitaciones: La reserva se puede realizar para una o varias habitaciones.
+- Hash: Código generado para identificación de reserva.
+
+
+#### Persona
+- Identificación (Documento de identidad)
+- Nombre
+- Edad
+
+### Cliente a facturar
+- Identificación (Documento de identidad), si es empresa (Documento tributario).
+- Nombre
+- RUC (Documento tributario).
+
+### Habitación
+- Número
+- Cantidad de camas
+- Precio

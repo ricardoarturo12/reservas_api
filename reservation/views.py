@@ -1,30 +1,29 @@
 from rest_framework import viewsets, generics, status
-from .serializers import PersonSerializer, ClientSerializer, RoomSerializer, ReservationSerializer #impor the serializer we just created
+from .serializers import PersonSerializer, ClientSerializer, RoomSerializer, ReservationSerializer
 from .models import Person, Client, Reservation, Room
 from rest_framework.response import Response
 from django.http import JsonResponse, Http404
 from rest_framework.views import APIView
 
 class person_view_set(viewsets.ModelViewSet):
-    # define queryset
+    """ define queryset room """
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
 
-
 class client_view_set(viewsets.ModelViewSet):
-    # define queryset
+    """ define queryset room """
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
 class room_view_set(viewsets.ModelViewSet):
-    # define queryset
+    """ define queryset room """
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
 
 class ReservationApiView(generics.ListCreateAPIView):
     """
-        Busca por hash_reservation y/o id_reservation
+        Search with hash_reservation / id_reservation
     """
     queryset = Reservation.objects.all().order_by('id')
     serializer_class = ReservationSerializer

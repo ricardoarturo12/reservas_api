@@ -4,6 +4,7 @@ import uuid
 
 
 class Person(models.Model):
+    """Person object"""
     identification = models.CharField(unique=True, 
                                       max_length=255)
     name = models.CharField(max_length=255)
@@ -14,6 +15,7 @@ class Person(models.Model):
 
 
 class Client(models.Model):
+    """Client object"""
     identification = models.CharField(unique=True, 
                                       max_length=255)
     name = models.CharField(max_length=255)
@@ -24,6 +26,7 @@ class Client(models.Model):
 
 
 class Room(models.Model):
+    """Room object"""
     number = models.CharField(unique=True,
                               max_length=255)
     bed_qty = models.PositiveIntegerField()
@@ -34,6 +37,7 @@ class Room(models.Model):
 
 
 class Reservation(models.Model):
+    """Reservation object"""
 
     STATUS = [
             ('pendiente',  'pendiente'),
@@ -46,7 +50,6 @@ class Reservation(models.Model):
             ('transferencia', 'transferencia'),
             ('otro','otro'),
     ]
-    """Reservation object"""
     hash_reservation = models.UUIDField(default=uuid.uuid4, 
                                         editable=False)
     status = models.CharField(
