@@ -1,9 +1,6 @@
 
 # Reservations API
 
-A brief description of what this project does and who it's for
-
-
 ## Documentation
 
 [Django](https://www.djangoproject.com/)
@@ -13,12 +10,12 @@ Django makes it easier to build better web apps more quickly and with less code.
 Django REST framework is a powerful and flexible toolkit for building Web APIs.
 
 [Postgresql](https://www.postgresql.org)
-PostgreSQL is a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
+PostgreSQL is a powerful, open source object-relational database system.
 ## Demo
 
 Link to demo
 
-http://157.230.177.4:8000/api/
+http://181.120.120.83:8000/api/
 
 ## API Reference
 
@@ -216,17 +213,21 @@ To run this project, you will need to add the following environment variables to
     "date_initial": "2022-07-20T18:35:42Z",
     "date_finished": "2022-07-20T18:35:44Z",
     "amount_total": 12312.0,
-    "client_id": null,
+    "client_id": {
+            "identification": "2879592",
+            "name": "Ricardo",
+            "ruc": "2879592-0"
+    },
     "persons": [
         {
             "identification": "2879592",
-            "name": "SOLE",
+            "name": "SOLE MOLINAS",
             "age": 31
         }
     ],
-    "room_id": [
+    "room_ids": [
         {
-            "number": "10",
+            "number": "10"
         }
     ]
 }
@@ -240,4 +241,3 @@ To run this project, you will need to add the following environment variables to
 
 - Tokens
 - Funcionalidad calcular cantidad de días
-- Entrypoint para inicializar(inicializar base de datos)
