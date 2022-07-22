@@ -105,16 +105,17 @@ http://181.120.120.83:8000/api/
 ```http
   POST /api/reservation/
 ```
-| Parameter       | Type           | Description                                      |
-| :--------       | :-------       | :--------------------------------                |
-| `status`        | `string`       | **Required** ('pendiente','pagado', 'eliminado') |
-| `days`          | `integer`      | **Required**                                     |    
-| `date_initial`  | `date_time`    | **Required**                                     |    
-| `date_finished` | `date_time`    | **Required**                                     |    
-| `persons`       | `many_to_many` | **Required**                                     |    
-| `client_id`     | `many_to_one`  |                                                  |    
-| `room_id`       | `many_to_many` | **Required**                                     |    
-| `amount_total`  | `float`        | **Required**                                     |    
+| Parameter       | Type           | Description                                                |
+| :--------       | :-------       | :--------------------------------                          |
+| `status`        | `string`       | **Required** ('pendiente','pagado', 'eliminado')           |
+| `days`          | `integer`      | **Required**                                               |    
+| `date_initial`  | `date_time`    | **Required**                                               |    
+| `date_finished` | `date_time`    | **Required**                                               |    
+| `persons`       | `many_to_many` | **Required**                                               |    
+| `client_id`     | `many_to_one`  |                                                            |    
+| `room_id`       | `many_to_many` | **Required**                                               |    
+| `paymethod`     | `string`       | **Required**('efectivo','tarjeta','transferencia','otro')  |    
+| `amount_total`  | `float`        | **Required**                                               |    
 
 
 #### Get reservations
@@ -213,6 +214,7 @@ To run this project, you will need to add the following environment variables to
     "date_initial": "2022-07-20T18:35:42Z",
     "date_finished": "2022-07-20T18:35:44Z",
     "amount_total": 12312.0,
+    "paymethod": "tarjeta",
     "client_id": {
             "identification": "2879592",
             "name": "Ricardo",

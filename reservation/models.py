@@ -40,6 +40,12 @@ class Reservation(models.Model):
             ('pagado', 'pagado'),
             ('eliminado', 'eliminado'),
     ]
+    PAYMETHOD = [
+            ('efectivo',  'efectivo'),
+            ('tarjeta', 'tarjeta'),
+            ('transferencia', 'transferencia'),
+            ('otro','otro'),
+    ]
     """Reservation object"""
     hash_reservation = models.UUIDField(default=uuid.uuid4, 
                                         editable=False)
@@ -58,6 +64,11 @@ class Reservation(models.Model):
         null = True
     )
     room_id = models.ManyToManyField(Room)
+    paymethod = models.CharField(
+        choices = PAYMETHOD,
+        default ='tarjeta',
+        max_length=20
+    )
     amount_total = models.FloatField()
 
     def __str__(self):
